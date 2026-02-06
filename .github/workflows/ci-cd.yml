@@ -90,7 +90,5 @@ jobs:
           port: ${{ secrets.SSH_PORT || 22 }}
           script_stop: true
           script: |
-            cd /opt/app
-            docker compose pull frontend
-            docker compose up -d frontend
-            docker image prune -f
+            cd /opt/frontend
+            ./deploy.sh
