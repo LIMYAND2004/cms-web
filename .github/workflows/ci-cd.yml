@@ -55,7 +55,7 @@ jobs:
         run: pnpm build
 
       - name: Run tests
-        run: pnpm test --run
+        run: pnpm test -- --run
 
       - name: Log in to Container Registry
         if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
@@ -86,7 +86,7 @@ jobs:
     needs: build
     if: |
       (github.event_name == 'push' && github.ref == 'refs/heads/stg') ||
-      (github.event_name == 'workflow_dispatch' && inputs.environment == 'staging')
+      (github.event_name == 'workflow_dispatch' && github.event.inputs.environment == 'staging')
     permissions:
       contents: read
 
@@ -108,7 +108,7 @@ jobs:
     needs: build
     if: |
       (github.event_name == 'push' && github.ref == 'refs/heads/main') ||
-      (github.event_name == 'workflow_dispatch' && inputs.environment == 'production')
+      (github.event_name == 'workflow_dispatch' && github.event.inputs.environment == 'production')
     permissions:
       contents: read
 
